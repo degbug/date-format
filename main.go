@@ -4,7 +4,6 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
-	"log"
 	"strconv"
 	"time"
 )
@@ -30,32 +29,39 @@ func main() {
 	flag.Parse()
 
 	t, e := parseTime(*s)
-	if e != nil {
-		log.Panic(e)
-	}
-
 	items := &Items{}
-	items.Items = []Item{
-		{
-			Uid:   "com.degbug-0",
-			Title: t.Format(TIME_LAYOUT),
-			Arg:   t.Format(TIME_LAYOUT),
-			Icon:  "icon.png",
-		},
-		{
-			Uid:      "com.degbug-1",
-			Title:    strconv.Itoa(int(t.UnixNano() / 1000000)),
-			Arg:      strconv.Itoa(int(t.UnixNano() / 1000000)),
-			Subtitle: "毫秒",
-			Icon:     "icon.png",
-		},
-		{
-			Uid:      "com.degbug-2",
-			Title:    strconv.Itoa(int(t.UnixNano() / 1000000000)),
-			Arg:      strconv.Itoa(int(t.UnixNano() / 1000000000)),
-			Subtitle: "秒",
-			Icon:     "icon.png",
-		},
+	if e != nil {
+		items.Items = []Item{
+			{
+				Uid:   "com.degbug-0",
+				Title: "error input ",
+				Arg:   e.Error(),
+				Icon:  "icon.png",
+			},
+		}
+	} else {
+		items.Items = []Item{
+			{
+				Uid:   "com.degbug-0",
+				Title: t.Format(TIME_LAYOUT),
+				Arg:   t.Format(TIME_LAYOUT),
+				Icon:  "icon.png",
+			},
+			{
+				Uid:      "com.degbug-1",
+				Title:    strconv.Itoa(int(t.UnixNano() / 1000000)),
+				Arg:      strconv.Itoa(int(t.UnixNano() / 1000000)),
+				Subtitle: "毫秒",
+				Icon:     "icon.png",
+			},
+			{
+				Uid:      "com.degbug-2",
+				Title:    strconv.Itoa(int(t.UnixNano() / 1000000000)),
+				Arg:      strconv.Itoa(int(t.UnixNano() / 1000000000)),
+				Subtitle: "秒",
+				Icon:     "icon.png",
+			},
+		}
 	}
 
 	out, _ := xml.MarshalIndent(items, "", "")
