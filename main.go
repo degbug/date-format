@@ -37,16 +37,24 @@ func main() {
 	items := &Items{}
 	items.Items = []Item{
 		{
-			Uid:   "1",
+			Uid:   "com.degbug-0",
 			Title: t.Format(TIME_LAYOUT),
 			Arg:   t.Format(TIME_LAYOUT),
 			Icon:  "icon.png",
 		},
 		{
-			Uid:   "2",
-			Title: strconv.Itoa(int(t.UnixNano() / 1000000)),
-			Arg:   strconv.Itoa(int(t.UnixNano() / 1000000)),
-			Icon:  "icon.png",
+			Uid:      "com.degbug-1",
+			Title:    strconv.Itoa(int(t.UnixNano() / 1000000)),
+			Arg:      strconv.Itoa(int(t.UnixNano() / 1000000)),
+			Subtitle: "毫秒",
+			Icon:     "icon.png",
+		},
+		{
+			Uid:      "com.degbug-2",
+			Title:    strconv.Itoa(int(t.UnixNano() / 1000000000)),
+			Arg:      strconv.Itoa(int(t.UnixNano() / 1000000000)),
+			Subtitle: "秒",
+			Icon:     "icon.png",
 		},
 	}
 
