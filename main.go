@@ -10,6 +10,8 @@ import (
 
 const TIME_LAYOUT = "2006-01-02 15:04:05"
 
+var LOC, _ = time.LoadLocation("Asia/Shanghai")
+
 type Item struct {
 	XMLName  xml.Name `xml:"item"`
 	Uid      string   `xml:"uid,attr"`
@@ -75,7 +77,7 @@ func parseTime(s string) (time.Time, error) {
 
 	timestamp, err := strconv.Atoi(s)
 	if err != nil {
-		time1, err := time.Parse(TIME_LAYOUT, s)
+		time1, err := time.ParseInLocation(TIME_LAYOUT, s, LOC)
 		if err != nil {
 			return time.Now(), err
 		} else {
