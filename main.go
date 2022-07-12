@@ -79,7 +79,11 @@ func parseTime(s string) (time.Time, error) {
 	if err != nil {
 		time1, err := time.ParseInLocation(TIME_LAYOUT, s, LOC)
 		if err != nil {
-			return time.Now(), err
+                        time1, err = time.ParseInLocation("2006-01-02", s, LOC)
+                        if err != nil {
+                            return time.Now(), err
+                        }
+			return time1, err
 		} else {
 			return time1, nil
 		}
